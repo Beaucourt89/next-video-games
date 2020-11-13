@@ -1,11 +1,11 @@
 import React from "react";
 import axios from "axios";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import Carousel from "react-bootstrap/Carousel"
+
 
 const Platform = ({ data }) => {
-  //   const router = useRouter();
-  //   console.log("la route est : " + router.query);
+
   return (
     <>
       <Head>
@@ -14,10 +14,29 @@ const Platform = ({ data }) => {
       <div>
        <h1>{data.name}</h1>
        <div>
-       <img src={data.cover.url}/>
+       {/* <img src={data.cover.url}/> */}
        </div>
         {JSON.stringify(data)}
       </div>
+     { data.screenshots ? 
+                <Carousel>
+                        {
+                            data.screenshots.map((screen, index) => {
+                                return (
+                                <Carousel.Item key={screen.url}>
+                                    <img
+                                    className="d-block w-100"
+                                    src={screen.url}
+                                    alt="First slide"
+                                    />
+                                    <Carousel.Caption>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+                                )
+                            })
+                        }
+                </Carousel>
+                : null }
     </>
   );
 };
